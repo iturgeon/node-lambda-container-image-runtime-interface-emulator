@@ -17,8 +17,7 @@ RUN apk add \
     automake \
     libtool \
     libexecinfo-dev \
-    python3 \
-	postgresql-client
+    python3
 
 RUN mkdir -p ${FUNCTION_DIR}
 
