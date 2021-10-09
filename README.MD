@@ -78,8 +78,10 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 
 ### Push node lambda application to ECR
 
+```
 docker tag nodelambda:latest <AWS_ACCOUNT>.dkr.ecr.<AWS_REGION>.amazonaws.com/<ECR_REPOSITORY>:nodelambda-latest
 docker push <AWS_ACCOUNT>.dkr.ecr.<AWS_REGION>.amazonaws.com/<ECR_REPOSITORY>:nodelambda-latest
+```
 
 
 ### Start your lambda and connect in to ALB
