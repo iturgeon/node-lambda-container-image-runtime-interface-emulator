@@ -1,18 +1,27 @@
-"use strict";
+const serverless = require('serverless-http');
+const express = require('express')
+const app = express()
 
-exports.handler = async (event, context) => {
-	let responseBody = {
-        message: 'Hello World',
-        input: event
-    };
+app.get('/', function (req, res) {
+	res.send('Hello World')
+})
 
-    let response = {
-        statusCode: 200,
-        headers: {
-            "x-custom-header" : "my custom header value"
-        },
-        body: JSON.stringify(responseBody)
-    };
-	console.log('Response', JSON.stringify(response))
-	return response
-}
+app.get('/justhi', function(req, res){
+	res.send('hi')
+})
+
+app.get('/mirror', function(req, res){
+	res.json({
+		body: req.body,
+		cookies: req.cookies,
+		hostname: req.hostname,
+		ip: req.ip,
+		method: req.method,
+		params: req.params,
+		path: req.path,
+		protocol: req.protocol,
+		query: req.query
+	})
+})
+
+module.exports.handler = serverless(app);

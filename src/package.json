@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-lambda-ric": "^2.0.0"
+    "aws-lambda-ric": "^2.0.0",
+    "express": "^4.17.1",
+    "serverless-http": "^2.7.0"
   }
 }
