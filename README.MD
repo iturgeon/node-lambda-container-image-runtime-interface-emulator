@@ -34,7 +34,6 @@ docker run --rm --env TARGET_URL=http://localhost:8080 --publish 8080:8080 ghcr.
 
 ```
 curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
-curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"httpMethod": "GET", "path": "/justhi"}'
 ```
 
 For reference purposes, here's a sample object that an Application Load Balancer will send to your function
@@ -69,10 +68,24 @@ For reference purposes, here's a sample object that an Application Load Balancer
 }
 ```
 
+Though you can simplify this object for testing different paths and requests
+
+```
+curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"httpMethod": "GET", "path": "/justhi"}'
+curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"httpMethod": "GET", "path": "/mirror", "queryStringParameters":{"query":"value"}}'
+```
+
 
 ### Push node lambda application to ECR
 
 docker tag nodelambda:latest <AWS_ACCOUNT>.dkr.ecr.<AWS_REGION>.amazonaws.com/<ECR_REPOSITORY>:nodelambda-latest
 docker push <AWS_ACCOUNT>.dkr.ecr.<AWS_REGION>.amazonaws.com/<ECR_REPOSITORY>:nodelambda-latest
+
+
+### Start your lambda and connect in to ALB
+
+You can connect your node lambda container image to an application load balancer.  You can use any of the ALB's rules to route requests to your new function, so this could be just one url, or your whole site!
+
+Note, if you attach your Express.js Lambda container image to a specific path, say "/lambda/path", the route in your express application that matches that url would still be `app.get('/lambda/path', () => {})`.  I wasn't initially sure if setting up the ALB this way would send "/" as the path to the function, but that appears to not be the case.
 
 
