@@ -19,7 +19,7 @@ docker build -t nodelambda:latest .
 ### Start your Node Lambda Container Image
 
 ```
-docker run -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 --entrypoint /aws-lambda/aws-lambda-rie nodelambda:latest /usr/local/bin/npx aws-lambda-ric app.handler
+docker run -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 --env ENV_LAMBDA_OPTION=YEE --entrypoint /aws-lambda/aws-lambda-rie nodelambda:latest /usr/local/bin/npx aws-lambda-ric app.handler
 ```
 
 ### Start RIE Container
