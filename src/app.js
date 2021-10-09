@@ -12,6 +12,7 @@ app.get('/justhi', function(req, res){
 
 app.get('/mirror', function(req, res){
 	res.json({
+		ENV_LAMBDA_OPTION: process.env.ENV_LAMBDA_OPTION,
 		body: req.body,
 		cookies: req.cookies,
 		hostname: req.hostname,
