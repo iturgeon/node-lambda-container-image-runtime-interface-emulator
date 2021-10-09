@@ -1,4 +1,3 @@
-const serverless = require('serverless-http');
 const express = require('express')
 const app = express()
 
@@ -25,4 +24,4 @@ app.get('/mirror', function(req, res){
 	})
 })
 
-module.exports.handler = serverless(app);
+module.exports.app = app

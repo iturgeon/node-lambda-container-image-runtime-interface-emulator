@@ -16,11 +16,17 @@ mkdir -p ~/.aws-lambda-rie && curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://
 docker build -t nodelambda:latest .
 ```
 
+Shortcut: `npm run docker:build`
+
 ### Start your Node Lambda Container Image
 
 ```
-docker run -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 --env ENV_LAMBDA_OPTION=YEE --entrypoint /aws-lambda/aws-lambda-rie nodelambda:latest /usr/local/bin/npx aws-lambda-ric app.handler
+docker run -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 --env ENV_LAMBDA_OPTION=YEE --entrypoint /aws-lambda/aws-lambda-rie nodelambda:latest /usr/local/bin/npx aws-lambda-ric app-lambda.handler
 ```
+
+Note that the use of `app-lambda.handler` corresponds with the name of the main js file `app-lambda.js` and it's export, `handler`
+
+Shortcut: `npm run docker:run`
 
 ### Start RIE Container
 
@@ -30,11 +36,15 @@ Start RIE to proxy HTTP requests and convert them to JSON that your Lambda Conta
 docker run --rm --env TARGET_URL=http://localhost:8080 --publish 8080:8080 ghcr.io/eagletmt/aws-lambda-rie-gateway
 ```
 
+Shortcut: `npm run docker:runrie`
+
 ### Send CURL request to RIE proxy
 
 ```
 curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
 ```
+
+Shortcut: `npm run curl:root`
 
 For reference purposes, here's a sample object that an Application Load Balancer will send to your function
 ```
@@ -75,6 +85,7 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"httpMethod": "GET", "path": "/mirror", "queryStringParameters":{"query":"value"}}'
 ```
 
+Shortcut: `npm run curl:mirror`
 
 ### Push node lambda application to ECR
 

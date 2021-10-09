@@ -2,9 +2,15 @@
   "name": "lambda-container-image-test",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "app-listen.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node app-listen.js",
+    "docker:build": "docker build -t nodelambda:latest ../",
+    "docker:run": "docker run -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 --env ENV_LAMBDA_OPTION=YEE --entrypoint /aws-lambda/aws-lambda-rie nodelambda:latest /usr/local/bin/npx aws-lambda-ric app-lambda.handler",
+    "docker:runrie": "docker run --rm --env TARGET_URL=http://localhost:8080 --publish 8080:8080 ghcr.io/eagletmt/aws-lambda-rie-gateway",
+    "curl:root": "curl -XPOST \"http://localhost:9000/2015-03-31/functions/function/invocations\" -d '{}'",
+    "curl:mirror": "curl -XPOST \"http://localhost:9000/2015-03-31/functions/function/invocations\" -d '{\"httpMethod\": \"GET\", \"path\": \"/mirror\", \"queryStringParameters\":{\"query\":\"value\"}}'"
   },
   "author": "",
   "license": "ISC",

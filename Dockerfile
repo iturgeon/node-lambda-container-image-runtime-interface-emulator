@@ -30,4 +30,4 @@ RUN npm install
 COPY src/* ${FUNCTION_DIR}
 
 ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
-CMD ["app.handler"]
+CMD ["app-lambda.handler"]
